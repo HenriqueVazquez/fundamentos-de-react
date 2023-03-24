@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 
 import { Card } from '../../components/Card';
@@ -19,13 +19,22 @@ export function Home() {
 
     setStudents(prevState => [...prevState, newStudent]);
     setStudentName('');
-
   }
 
+  useEffect(() => {
+    console.log("useEffect foi chamado!");
+  });
 
   return (
     <div className='container'>
-      <h1>Lista de presença</h1>
+      <header>
+        <h1>Lista de Presença</h1>
+        <div>
+          <strong>Henrique Vazquez</strong>
+          <img src="https://avatars.githubusercontent.com/u/14090441?v=4" alt="Foto de perfil" />
+        </div>
+      </header>
+
       <input
         type="text"
         placeholder="Digite o nome ..."
@@ -39,16 +48,14 @@ export function Home() {
       </button>
 
       {
-        students.map(
-          (
-            student =>
-              <Card key={student.time} name={student.name} time={student.time} />
-          ))
-
+        students.map(student => (
+          <Card
+            key={student.time}
+            name={student.name}
+            time={student.time}
+          />
+        ))
       }
-
-
-
     </div>
   )
 }
