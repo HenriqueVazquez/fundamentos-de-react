@@ -6,6 +6,9 @@ import { Card } from '../../components/Card';
 export function Home() {
   const [studentName, setStudentName] = useState('');
   const [students, setStudents] = useState([]);
+  const [user, setUser] = useState({ name: '', avatar: '' });
+
+  const url = 'http://api.github.com/users/henriquevazquez'
 
   function handleAddStudent() {
     const newStudent = {
@@ -18,11 +21,19 @@ export function Home() {
     }
 
     setStudents(prevState => [...prevState, newStudent]);
-    setStudentName('');
+    setStudentName('')
   }
 
   useEffect(() => {
-    console.log("useEffect foi chamado!");
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setUser({
+          name: data.name,
+          avatar: data.avatar_url
+        })
+      })
+
   });
 
   return (
@@ -30,8 +41,8 @@ export function Home() {
       <header>
         <h1>Lista de Presença</h1>
         <div>
-          <strong>Henrique Vazquez</strong>
-          <img src="https://avatars.githubusercontent.com/u/14090441?v=4" alt="Foto de perfil" />
+          <strong>{user.name}</strong>
+          <img src={user.avatar} alt="Foto de perfil" />
         </div>
       </header>
 
