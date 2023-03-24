@@ -42,7 +42,7 @@ export function Home() {
         students.map(
           (
             student =>
-              <Card name={student.name} time={student.time} />
+              <Card key={student.time} name={student.name} time={student.time} />
           ))
 
       }
